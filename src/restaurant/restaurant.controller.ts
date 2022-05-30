@@ -83,7 +83,7 @@ export class RestaurantController {
 
   @Delete('removeRestaurant/:id')
   async removeRestaurant(
-    @Param('id') id,
+    @Param('id') id: number,
     @GetUser() owner: Owner,
   ): Promise<Restaurant> {
     const restaurant = await this.restaurantService.findRestaurantById(id);
