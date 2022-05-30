@@ -13,6 +13,7 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { RatingDto } from './dto/rating.dto';
 import { RatingService } from './rating.service';
 import { Plate } from '../restaurant/entities/plate.entity';
+import { Client } from '../auth/entities/client.entity';
 
 @Controller('rating')
 @hasRoles(UserRole.CLIENT, UserRole.ADMIN)
@@ -31,7 +32,7 @@ export class RatingController {
   @Post('rateRestaurant')
   rateRestaurant(
     @Body(ValidationPipe) ratingDto: RatingDto,
-    @GetUser() client,
+    @GetUser() client: Client,
   ): Promise<void> {
     return this.ratingService.addRestaurantRate(ratingDto, client);
   }
