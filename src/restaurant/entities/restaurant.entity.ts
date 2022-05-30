@@ -28,7 +28,7 @@ export class Restaurant extends BaseEntity {
   @JoinColumn()
   address: Address;
 
-  @OneToOne(() => Owner, (owner) => owner.restaurant, { eager: false })
+  @OneToOne(() => Owner, (owner) => owner.restaurant, { eager: true })
   @JoinColumn()
   owner: Owner;
 

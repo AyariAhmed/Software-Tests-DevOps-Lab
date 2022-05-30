@@ -21,7 +21,7 @@ export class RatingService {
     private restaurantRepository: Repository<Restaurant>,
   ) {}
 
-  async addPlateRate(rateDto: RatingDto, client: Client) {
+  async addPlateRate(rateDto: RatingDto, client: Client): Promise<Plate> {
     const plate = await this.plateRepository.findOne(rateDto.entityId);
 
     if (!plate) throw new InternalServerErrorException();
@@ -51,6 +51,7 @@ export class RatingService {
       }
       plate.rate = newRateValue;
       await this.plateRepository.save(plate);
+      return plate;
     }
   }
 

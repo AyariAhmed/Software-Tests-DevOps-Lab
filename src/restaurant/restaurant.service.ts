@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Owner } from 'src/auth/entities/owner.entity';
 import { Repository } from 'typeorm';
@@ -46,7 +50,9 @@ export class RestaurantService {
   }
 
   async findRestaurantById(id: number): Promise<Restaurant> {
-    return Restaurant.findOne(id);
+    const restaurant = await Restaurant.findOne(id);
+    if (!restaurant) throw new NotFoundException('No restaurant found');
+    return restaurant;
   }
 
   async findPlateById(id: number): Promise<Plate> {

@@ -12,6 +12,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { RatingDto } from './dto/rating.dto';
 import { RatingService } from './rating.service';
+import { Plate } from '../restaurant/entities/plate.entity';
 
 @Controller('rating')
 @hasRoles(UserRole.CLIENT, UserRole.ADMIN)
@@ -23,7 +24,7 @@ export class RatingController {
   ratePlate(
     @Body(ValidationPipe) ratingDto: RatingDto,
     @GetUser() client,
-  ): Promise<void> {
+  ): Promise<Plate> {
     return this.ratingService.addPlateRate(ratingDto, client);
   }
 

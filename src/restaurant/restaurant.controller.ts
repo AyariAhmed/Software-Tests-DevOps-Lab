@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   UseGuards,
@@ -79,21 +81,22 @@ export class RestaurantController {
     return this.restaurantService.findPlates(plateDto);
   }
 
-  @Get('removeRestaurant/:id')
+  @Delete('removeRestaurant/:id')
   async removeRestaurant(
     @Param('id') id,
     @GetUser() owner: Owner,
-  ): Promise<null> {
+  ): Promise<Restaurant> {
     const restaurant = await this.restaurantService.findRestaurantById(id);
-    if (!restaurant || restaurant.owner.id != owner.id)
+    if (!restaurant) throw new NotFoundException('Restaurant not found');
+    if (restaurant.owner.id != owner.id)
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     else {
       await this.restaurantService.removeRestaurant(id);
-      return;
+      return restaurant;
     }
   }
 
-  @Get('removePlate/:id')
+  @Delete('removePlate/:id')
   async removePlate(@Param('id') id, @GetUser() owner: Owner): Promise<null> {
     const plate = await this.restaurantService.findPlateById(id);
     if (!plate.restaurant)
@@ -111,13 +114,13 @@ export class RestaurantController {
     }
   }
 
-  @Get('topRatedPlates/:limit')
-  topRatedPlates(@Param('limit') limit): Promise<Plate[]> {
-    return this.restaurantService.findTopRatedPlates(limit);
+  @Get('topRatedPlates/:limit?')
+  topRatedPlates(@Param('limit') limit?: number): Promise<Plate[]> {
+    return this.restaurantService.findTopRatedPlates(limit ?? 1);
   }
 
-  @Get('topRatedRestaurants/:limit')
-  topRatedRestaurants(@Param('limit') limit): Promise<Restaurant[]> {
-    return this.restaurantService.findTopRatedRestaurants(limit);
+  @Get('topRatedRestaurants/:limit?')
+  topRatedRestaurants(@Param('limit') limit?: number): Promise<Restaurant[]> {
+    return this.restaurantService.findTopRatedRestaurants(limit ?? 1);
   }
 }
