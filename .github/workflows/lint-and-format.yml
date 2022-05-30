@@ -15,6 +15,9 @@ on:
       - 'src/**/*.ts'
       - 'test/**/*.ts'
 
+permissions:
+  checks: write
+
 jobs:
   lint-and-format:
     name: linting and prettier
