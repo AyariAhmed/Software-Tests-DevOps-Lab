@@ -4,16 +4,10 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'src/**/*.ts'
-      - 'test/**/*.ts'
   pull_request:
     types: [opened]
     branches:
       - main
-    paths:
-      - 'src/**/*.ts'
-      - 'test/**/*.ts'
 
 permissions:
   checks: write
