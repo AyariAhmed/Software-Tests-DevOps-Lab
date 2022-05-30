@@ -1,9 +1,8 @@
-db :
-  host : 'localhost'
-  username : 'foodimap_admin'
-  password : 'foodimap_admin'
-  synchronize : true
+db:
+  host: 'localhost'
+  username: 'foodimap_admin'
+  password: 'foodimap_admin'
+  synchronize: true
 
-
-jwt :
-  secret : 'top_secret '
+jwt:
+  secret: 'top_secret '

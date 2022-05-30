@@ -1,6 +1,5 @@
-db :
+db:
   synchronize: false
 
-
-server :
-  origin : 'host url'
+server:
+  origin: 'host url'
