@@ -31,9 +31,6 @@ jobs:
       - name: Run linter & formatter
         uses: wearerequired/lint-action@v1.10.0
         with:
-          commit_message: 'style: lint code with ${linter}'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          auto_fix: true
           eslint: true
           eslint_extensions: ts
           prettier: true
