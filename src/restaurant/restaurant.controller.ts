@@ -31,7 +31,7 @@ export class RestaurantController {
   addRestaurant(
     @Body() restaurantDetails,
     @GetUser() owner: Owner,
-  ): Promise<string> {
+  ): Promise<Omit<Restaurant, 'owner'>> {
     return this.restaurantService.addRestaurant(
       restaurantDetails.name,
       restaurantDetails.imageUrl,
@@ -43,7 +43,7 @@ export class RestaurantController {
   async addPlate(
     @Body(ValidationPipe) plateCreationDto: PlateCreationDto,
     @GetUser() owner,
-  ): Promise<null> {
+  ): Promise<Plate> {
     const restaurant = await this.restaurantService.findRestaurantById(
       plateCreationDto.restaurantId,
     );
@@ -67,6 +67,13 @@ export class RestaurantController {
     return this.restaurantService.findAllRestaurants();
   }
 
+  @Get('getRestaurant/:restaurantId')
+  async getRestaurant(
+    @Param('restaurantId') restaurantId,
+  ): Promise<Restaurant> {
+    return this.restaurantService.findRestaurantById(restaurantId);
+  }
+
   @Post('findPlates')
   async findPlates(@Body() plateDto: PlateSearchDto): Promise<Plate[]> {
     return this.restaurantService.findPlates(plateDto);
@@ -81,7 +88,7 @@ export class RestaurantController {
     if (!restaurant || restaurant.owner.id != owner.id)
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     else {
-      this.restaurantService.removeRestaurant(id);
+      await this.restaurantService.removeRestaurant(id);
       return;
     }
   }
@@ -99,7 +106,7 @@ export class RestaurantController {
     if (!restaurant || restaurant.owner.id != owner.id)
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     else {
-      this.restaurantService.removePlate(id);
+      await this.restaurantService.removePlate(id);
       return;
     }
   }

@@ -25,7 +25,7 @@ export class RestaurantService {
     restaurantName: string,
     imageUrl: string,
     owner: Owner,
-  ): Promise<null> {
+  ): Promise<Omit<Restaurant, 'owner'>> {
     const restaurant = new Restaurant(
       restaurantName,
       0,
@@ -34,11 +34,11 @@ export class RestaurantService {
       imageUrl,
     );
 
-    this.restaurantRepository.save(restaurant);
+    await this.restaurantRepository.save(restaurant);
     owner.restaurant = restaurant;
-    Owner.save(owner);
-
-    return;
+    await Owner.save(owner);
+    delete restaurant.owner;
+    return restaurant;
   }
 
   async findAllRestaurants(): Promise<Restaurant[]> {
@@ -72,9 +72,8 @@ export class RestaurantService {
   async addPlate(
     plateCreationDto: PlateCreationDto,
     restaurant: Restaurant,
-  ): Promise<null> {
+  ): Promise<Plate> {
     const { name, description, price, imageUrl } = plateCreationDto;
-
     let plate: Plate;
 
     try {
@@ -86,7 +85,7 @@ export class RestaurantService {
       throw new InternalServerErrorException();
     }
 
-    return;
+    return plate;
   }
 
   async findTopRatedPlates(limit: number): Promise<Plate[]> {
@@ -116,10 +115,10 @@ export class RestaurantService {
   }
 
   async removeRestaurant(id: number) {
-    this.restaurantRepository.delete(id);
+    await this.restaurantRepository.delete(id);
   }
 
   async removePlate(id: number) {
-    this.plateRepository.delete(id);
+    await this.plateRepository.delete(id);
   }
 }
