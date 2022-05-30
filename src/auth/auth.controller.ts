@@ -25,28 +25,28 @@ export class AuthController {
   @Post('client/signup')
   async clientSignup(
     @Body(ValidationPipe) signupCredentialsDto: ClientSignupCredentialsDto,
-  ): Promise<{ accessToken: string; client: Client } | void> {
+  ): Promise<{ accessToken: string; client: Omit<Client, 'password'> } | void> {
     return this.authService.clientSignup(signupCredentialsDto);
   }
 
   @Post('client/login')
   async clientLogin(
     @Body(ValidationPipe) loginCredentialsDto: LoginCredentialsDto,
-  ): Promise<{ accessToken: string; client: Client } | void> {
+  ): Promise<{ accessToken: string; client: Omit<Client, 'password'> } | void> {
     return this.authService.clientLogin(loginCredentialsDto);
   }
 
   @Post('owner/signup')
   async ownerSignup(
     @Body(ValidationPipe) signupCredentialsDto: OwnerSignupCredentialsDto,
-  ): Promise<{ accessToken: string; owner: Owner } | void> {
+  ): Promise<{ accessToken: string; owner: Omit<Owner, 'password'> } | void> {
     return this.authService.ownerSignup(signupCredentialsDto);
   }
 
   @Post('owner/login')
   async login(
     @Body(ValidationPipe) loginCredentialsDto: LoginCredentialsDto,
-  ): Promise<{ accessToken: string; owner: Owner } | void> {
+  ): Promise<{ accessToken: string; owner: Omit<Owner, 'password'> } | void> {
     return this.authService.ownerLogin(loginCredentialsDto);
   }
 
@@ -55,10 +55,5 @@ export class AuthController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   testUserExtraction(@GetUser() client) {
     return client;
-  }
-
-  @Get('/test2')
-  test() {
-    return 'test2';
   }
 }

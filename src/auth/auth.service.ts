@@ -22,12 +22,13 @@ export class AuthService {
 
   async clientSignup(
     signupCredentialsDto: ClientSignupCredentialsDto,
-  ): Promise<{ accessToken: string; client: Client } | null> {
+  ): Promise<{ accessToken: string; client: Omit<Client, 'password'> } | null> {
     const newUser: Client | null = await this.clientRepository.signup(
       signupCredentialsDto,
     );
     if (newUser) {
       const accessToken = await this.signJwt(newUser.email, newUser.role);
+      delete newUser.password;
       return {
         accessToken: accessToken,
         client: newUser,
@@ -37,13 +38,14 @@ export class AuthService {
 
   async clientLogin(
     loginCredentialsDto: LoginCredentialsDto,
-  ): Promise<{ accessToken: string; client: Client } | null> {
+  ): Promise<{ accessToken: string; client: Omit<Client, 'password'> } | null> {
     const user: Client | null = await this.clientRepository.validateUserPassword(
       loginCredentialsDto,
     );
     if (!user) {
       throw new UnauthorizedException('Invalid Credentials');
     }
+    delete user.password;
     const accessToken = await this.signJwt(user.email, user.role);
     return {
       accessToken,
@@ -53,12 +55,13 @@ export class AuthService {
 
   async ownerSignup(
     signupCredentialsDto: OwnerSignupCredentialsDto,
-  ): Promise<{ accessToken: string; owner: Owner } | null> {
+  ): Promise<{ accessToken: string; owner: Omit<Owner, 'password'> } | null> {
     const newUser: Owner | null = await this.ownerRepository.signup(
       signupCredentialsDto,
     );
     if (newUser) {
       const accessToken = await this.signJwt(newUser.email, newUser.role);
+      delete newUser.password;
       return {
         accessToken,
         owner: newUser,
@@ -68,13 +71,14 @@ export class AuthService {
 
   async ownerLogin(
     loginCredentialsDto: LoginCredentialsDto,
-  ): Promise<{ accessToken: string; owner: Owner } | null> {
+  ): Promise<{ accessToken: string; owner: Omit<Owner, 'password'> } | null> {
     const user: Owner | null = await this.ownerRepository.validateUserPassword(
       loginCredentialsDto,
     );
     if (!user) {
       throw new UnauthorizedException('Invalid Credentials');
     }
+    delete user.password;
     const accessToken = await this.signJwt(user.email, user.role);
     return {
       accessToken,
