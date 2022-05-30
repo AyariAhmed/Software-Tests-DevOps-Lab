@@ -97,7 +97,10 @@ export class RestaurantController {
   }
 
   @Delete('removePlate/:id')
-  async removePlate(@Param('id') id, @GetUser() owner: Owner): Promise<null> {
+  async removePlate(
+    @Param('id') id: number,
+    @GetUser() owner: Owner,
+  ): Promise<null> {
     const plate = await this.restaurantService.findPlateById(id);
     if (!plate.restaurant)
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
