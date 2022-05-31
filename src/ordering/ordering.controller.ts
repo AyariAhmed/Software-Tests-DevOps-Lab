@@ -34,7 +34,7 @@ export class OrderingController {
 
   @hasRoles(UserRole.CLIENT)
   @Get('client/getOrders')
-  getClientOrders(@GetUser() client) {
+  getClientOrders(@GetUser() client: Client) {
     return Order.find({ client: client });
   }
 
