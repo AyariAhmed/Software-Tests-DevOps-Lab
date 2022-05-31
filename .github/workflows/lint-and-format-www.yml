@@ -1,24 +1,17 @@
-name: Lint and format
+name: Lint and format www
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'src/**/*.ts'
-      - 'test/**/*.ts'
-      - 'config/**/*.(yml|yaml|json)'
+      - 'www/src/**/*.ts'
   pull_request:
     types: [opened]
     branches:
       - main
     paths:
-      - 'src/**/*.ts'
-      - 'test/**/*.ts'
-      - 'config/**/*.(yml|yaml|json)'
-
-permissions:
-  checks: write
+      - 'www/src/**/*.ts'
 
 jobs:
   lint-and-format:
