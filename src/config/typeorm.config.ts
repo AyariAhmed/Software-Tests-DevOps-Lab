@@ -12,7 +12,7 @@ if (process.env.DATABASE_URL) {
 }
 
 const dbConfig = configFile.get('db');
-if (connectionOptions) {
+if (connectionOptions && process.env.NODE_ENV === 'production') {
   typeOrmConfig = {
     type: dbConfig.type,
     host: connectionOptions.host || dbConfig.host,
@@ -22,6 +22,9 @@ if (connectionOptions) {
     database: connectionOptions.database || dbConfig.database,
     entities: [__dirname + '/../**/*.entity.{ts,js}'],
     synchronize: process.env.TYPEORM_SYNC || dbConfig.synchronize,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   };
 } else {
   typeOrmConfig = {

@@ -1,5 +1,6 @@
 db:
-  synchronize: false
+  # should be false in real prod env
+  synchronize: true
 
 server:
   origin: 'host url'
