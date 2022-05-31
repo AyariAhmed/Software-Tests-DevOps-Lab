@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
-import { Client } from 'src/auth/entities/client.entity';
-import { Restaurant } from 'src/restaurant/entities/restaurant.entity';
+import { Client } from '../../auth/entities/client.entity';
+import { Restaurant } from '../../restaurant/entities/restaurant.entity';
 import {
   BaseEntity,
   Column,

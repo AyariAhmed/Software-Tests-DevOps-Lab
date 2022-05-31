@@ -11,9 +11,9 @@ import {
 import { Address } from './address.entity';
 import { JoinColumn } from 'typeorm';
 import { UserRole } from './roles.enum';
-import { PlateRate } from 'src/rating/entities/plateRate.entity';
-import { RestaurantRate } from 'src/rating/entities/restaurantRate.entity';
-import { Order } from 'src/ordering/entities/order.entity';
+import { PlateRate } from '../../rating/entities/plateRate.entity';
+import { RestaurantRate } from '../../rating/entities/restaurantRate.entity';
+import { Order } from '../../ordering/entities/order.entity';
 
 @Entity()
 export class Client extends BaseEntity {

@@ -5,8 +5,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Plate } from 'src/restaurant/entities/plate.entity';
-import { Client } from 'src/auth/entities/client.entity';
+import { Plate } from '../../restaurant/entities/plate.entity';
+import { Client } from '../../auth/entities/client.entity';
 
 @Entity()
 export class PlateRate extends BaseEntity {

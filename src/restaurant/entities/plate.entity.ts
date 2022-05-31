@@ -1,5 +1,5 @@
-import { OrderLine } from 'src/ordering/entities/orderLine.entity';
-import { PlateRate } from 'src/rating/entities/plateRate.entity';
+import { OrderLine } from '../../ordering/entities/orderLine.entity';
+import { PlateRate } from '../../rating/entities/plateRate.entity';
 import {
   BaseEntity,
   Column,
