@@ -1,16 +1,17 @@
-import * as config from 'config';
-import * as PostgressConnectionStringParser from 'pg-connection-string';
+import 'dotenv/config';
+import * as configFile from 'config';
+import * as PostgresConnectionStringParser from 'pg-connection-string';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 let typeOrmConfig: TypeOrmModuleOptions;
 let connectionOptions = null;
 if (process.env.DATABASE_URL) {
-  connectionOptions = PostgressConnectionStringParser.parse(
+  connectionOptions = PostgresConnectionStringParser.parse(
     process.env.DATABASE_URL,
   );
 }
 
-const dbConfig = config.get('db');
+const dbConfig = configFile.get('db');
 if (connectionOptions) {
   typeOrmConfig = {
     type: dbConfig.type,

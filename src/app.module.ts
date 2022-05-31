@@ -9,7 +9,7 @@ import { OrderingModule } from './ordering/ordering.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
     TypeOrmModule.forRoot(typeOrmConfig),
     AuthModule,
     RestaurantModule,
