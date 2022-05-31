@@ -5,13 +5,13 @@ on:
     branches:
       - main
     paths:
-      - 'www/src/**/*.(js|css)'
+      - 'www/src/**'
   pull_request:
     types: [opened]
     branches:
       - main
     paths:
-      - 'www/src/**/*.(js|css)'
+      - 'www/src/**'
 
 jobs:
   lint-and-format:
