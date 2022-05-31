@@ -15,6 +15,7 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Restaurant } from 'src/restaurant/entities/restaurant.entity';
 import { Order } from './entities/order.entity';
 import { OrderingService } from './ordering.service';
+import { Client } from '../auth/entities/client.entity';
 
 @Controller('ordering')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -25,7 +26,7 @@ export class OrderingController {
   @Post('addOrder')
   async addOrder(
     @Body(ValidationPipe) order: Order,
-    @GetUser() client,
+    @GetUser() client: Client,
   ): Promise<null> {
     order.client = client;
     return await this.orderingService.addOrder(order);
