@@ -29,9 +29,8 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: |
-          cd .. 
-          npm install
-          npm run install:web
+          cd .. && npm install
+          cd www && npm install
       - name: Production Build
         run: |
           npm run build
