@@ -1,0 +1,21 @@
+#name: api production Build && Deploy to S3
+#
+#on:
+#  push:
+#    branches:
+#      - main
+#    paths:
+#      - 'src/**/*.ts'
+#      - 'test/**/*.ts'
+#      - 'config/**/*.(yml|yaml|json)'
+#  pull_request:
+#    types: [opened]
+#    branches:
+#      - main
+#    paths:
+#      - 'src/**/*.ts'
+#      - 'test/**/*.ts'
+#      - 'config/**/*.(yml|yaml|json)'
+#
+#jobs:
+

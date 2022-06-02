@@ -8,14 +8,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const serverConfig = config.get('server');
 
-  if (process.env.NODE_ENV === 'development') {
+  app.enableCors(); // for testing cors is enabled, it must be disabled on prod
+  /*  if (process.env.NODE_ENV === 'development') {
     app.enableCors();
   } else {
     app.enableCors({
       origin: serverConfig.origin,
     });
     logger.log(`Cors Has been enabled for the origin : ${serverConfig.origin}`);
-  }
+  }*/
   const port = process.env.PORT || serverConfig.port;
   app.setGlobalPrefix('api');
   await app.listen(port, () => {

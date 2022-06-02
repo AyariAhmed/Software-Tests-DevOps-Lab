@@ -1,0 +1,8 @@
+/.github
+/.husky
+/node_modules
+/www
+/postgres
+/Insomnia-api-endpoints
+/README.md
+/docker-compose.yml

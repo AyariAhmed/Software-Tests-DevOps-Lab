@@ -13,7 +13,6 @@ if (process.env.DATABASE_URL) {
 
 const dbConfig = configFile.get('db');
 if (connectionOptions && process.env.NODE_ENV === 'production') {
-  console.log(connectionOptions);
   typeOrmConfig = {
     type: dbConfig.type,
     host: connectionOptions.host || dbConfig.host,
