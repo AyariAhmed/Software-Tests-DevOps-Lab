@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - main
-#    paths:
-#      - 'www/**'
+    paths:
+      - 'www/**'
   pull_request:
     types: [opened]
     branches:
       - main
-#    paths:
-#      - 'www/**'
+    paths:
+      - 'www/**'
 
 
 jobs:
@@ -22,7 +22,6 @@ jobs:
         working-directory: ./www
     steps:
       - uses: actions/checkout@v2
-
       - name: Nodejs environment setup
         uses: actions/setup-node@v3
         with:
@@ -37,14 +36,12 @@ jobs:
 #      - name: e2e Tests
 #        run: |
 #          npm run test:e2e
-      - run: echo ${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-
 
       - name: Deploy to S3
         run: aws s3 sync ./build s3://${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
