@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install dependencies
+      - name: Install dependencies # dependencies must include eslint and prettier
         run: npm install
 
       - name: Run linter & formatter

@@ -14,4 +14,4 @@ docker-compose up -d
 
 - Production (hosted in heroku)
 
-> Provide a valid `DATABASE_URL` (postgres connection string) at `.env`
+> Provide a valid `DATABASE_URL` (postgres connection string) at `.env`, run: heroku config -a <heroku-app-name> to get the DATABASE_URL (for free plan, credentials are not permanent )
