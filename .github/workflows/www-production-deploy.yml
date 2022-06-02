@@ -22,7 +22,7 @@ jobs:
       run:
         working-directory: ./www
     steps:
-      - run: echo ${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
+      - run: echo '${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}'
 #      - uses: actions/checkout@v2
 #
 #      - name: Nodejs environment setup
