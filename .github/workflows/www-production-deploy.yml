@@ -17,36 +17,34 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: Production
     defaults:
       run:
         working-directory: ./www
     steps:
       - uses: actions/checkout@v2
-      - run: echo '${{ secrets.AWS_REGION }}'
-#
-#      - name: Nodejs environment setup
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: 16
-#      - name: Install dependencies
+
+      - name: Nodejs environment setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: |
+          cd .. && npm install
+          cd www && npm install
+      - name: Production Build
+        run: |
+          npm run build
+#      - name: e2e Tests
 #        run: |
-#          cd .. && npm install
-#          cd www && npm install
-#      - name: Production Build
-#        run: |
-#          npm run build
-##      - name: e2e Tests
-##        run: |
-##          npm run test:e2e
-#      - run: echo ${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
-#      - name: Configure AWS Credentials
-#        uses: aws-actions/configure-aws-credentials@v1
-#        with:
-#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          aws-region: ${{ secrets.AWS_REGION }}
-#
-#
-#      - name: Deploy to S3
-#        run: aws s3 sync ./build s3://${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
+#          npm run test:e2e
+      - run: echo ${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+
+      - name: Deploy to S3
+        run: aws s3 sync ./build s3://${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
