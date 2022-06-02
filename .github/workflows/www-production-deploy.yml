@@ -29,9 +29,11 @@ jobs:
       - run: pwd
       - name: Install dependencies
         run: |
-          npm install
+          cd .. && npm install
+          cd www && npm install
       - name: Production Build
         run: |
+          pwd
           npm run build
 #      - name: e2e Tests
 #        run: |
