@@ -36,6 +36,8 @@ jobs:
       - name: e2e Tests
         uses: cypress-io/github-action@v2
         with:
+          install: false
+          working-directory: www
           build: npm run build
           start: npm start
       - name: Configure AWS Credentials
