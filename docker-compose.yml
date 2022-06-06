@@ -3,11 +3,12 @@ services:
   postgres:
     container_name: postgres
     image: postgres
+    restart: unless-stopped
     healthcheck:
       test: [ 'CMD', 'pg_isready', '-q', '-d', 'postgres', '-U', 'postgres' ]
       timeout: 45s
       interval: 10s
-      retries: 10
+      retries: 5
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

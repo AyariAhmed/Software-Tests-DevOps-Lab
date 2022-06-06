@@ -17,14 +17,14 @@ on:
 #      - 'test/**/*.ts'
 #      - 'config/**/*.(yml|yaml|json)'
 
-#env:
-#  ECS_SERVICE: tests-devops-lab-app               # set this to your Amazon ECS service name
-#  ECS_CLUSTER: tests-devops-lab                # set this to your Amazon ECS cluster name
-#  ECS_TASK_DEFINITION: .aws/task-definition.json # set this to the path to your Amazon ECS task definition
+env:
+  ECS_SERVICE: tests-devops-lab-app               # set this to your Amazon ECS service name
+  ECS_CLUSTER: tests-devops-lab                # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: .aws/task-definition.json # set this to the path to your Amazon ECS task definition
 
 jobs:
   Test:
-    if: ${{ false }}  # disable it
+    name: Run unit and integration tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -42,18 +42,22 @@ jobs:
         run: |
           npm install
 
-#      - name: unit tests
-#        run: |
-#          npn test
-#      - name: integration tests
-#        run: |
+      - name: Unit tests
+        run: |
+          echo "Tests should be run on ${{ matrix.node }}"
+#          npm test
+      - name: Integration tests
+        run: |
+          echo "Tests should be run on ${{ matrix.node }}"
 #          npm test:e2e
+
 
 
   Build:
     runs-on: ubuntu-latest
-#    needs:
-#      - Test
+    name: Build and push to DockerHub
+    needs:
+      - Test
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -82,11 +86,10 @@ jobs:
 
 
   Deploy:
-    if: ${{ false }}  # disable it
-    name: Deploy
+    name: Deploy to ECS
     runs-on: ubuntu-latest
-#    needs:
-#      - build
+    needs:
+      - build
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -96,7 +99,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: lowercase github repository name
         id: string
