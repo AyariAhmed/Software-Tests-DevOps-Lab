@@ -16,16 +16,18 @@ function App() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (
-      (credentials.email === '25401350' ||
-        credentials.email === 'ahmed@ayari.io') &&
-      credentials.password === '123456'
-    ) {
-      setError(false);
-      setLoggedin(true);
-    } else {
-      setError(true);
-    }
+    setTimeout(() => {
+      if (
+        (credentials.email === '25401350' ||
+          credentials.email === 'ahmed@ayari.io') &&
+        credentials.password === '123456'
+      ) {
+        setError(false);
+        setLoggedin(true);
+      } else {
+        setError(true);
+      }
+    }, 200);
   };
   return (
     <div
@@ -38,7 +40,7 @@ function App() {
       }}
     >
       {loggedin ? (
-        <Header as="h3" content="LoggedIn" />
+        <Header as="h3" id={'success'} content="LoggedIn" />
       ) : (
         <>
           {' '}
@@ -55,6 +57,7 @@ function App() {
               <input
                 onChange={(e) => onChange('email', e.target.value)}
                 placeholder="Email/Phone number"
+                id={'email'}
               />
             </Form.Field>
             <Form.Field>
@@ -62,16 +65,22 @@ function App() {
               <input
                 onChange={(e) => onChange('password', e.target.value)}
                 type={'password'}
+                id={'password'}
                 placeholder="Password"
               />
             </Form.Field>
 
-            <Button type="submit" onClick={onSubmit}>
+            <Button id={'login'} type="submit" onClick={onSubmit}>
               Login
             </Button>
           </Form>
           {error && (
-            <Message error header="Error" content="Wrong credentials" />
+            <Message
+              id={'error'}
+              error
+              header="Error"
+              content="Wrong credentials"
+            />
           )}
         </>
       )}
