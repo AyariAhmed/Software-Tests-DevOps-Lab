@@ -35,12 +35,15 @@ jobs:
           npm run build
 
       - name: e2e Tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
+          browser: chrome
           install: false
           working-directory: www
           build: npm run build
           start: npm start
+          spec: cypress/integration/**/*.js
+          project: .
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
