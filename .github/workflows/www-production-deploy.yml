@@ -33,6 +33,7 @@ jobs:
       - name: Production Build
         run: |
           npm run build
+
       - name: e2e Tests
         uses: cypress-io/github-action@v2
         with:
@@ -40,6 +41,7 @@ jobs:
           working-directory: www
           build: npm run build
           start: npm start
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:

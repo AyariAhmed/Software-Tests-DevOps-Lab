@@ -9,7 +9,7 @@ on:
       - 'test/**/*.ts'
       - 'config/**/*.(yml|yaml|json)'
   pull_request:
-    types: [opened]
+    types: [ opened ]
     branches:
       - main
     paths:
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['14','16']
+        node: [ '14','16' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -46,11 +46,11 @@ jobs:
       - name: Unit tests
         run: |
           echo "Tests should be run on ${{ matrix.node }}"
-#          npm test
+      #          npm test
       - name: Integration tests
         run: |
           echo "Tests should be run on ${{ matrix.node }}"
-#          npm test:e2e
+  #          npm test:e2e
 
 
 
