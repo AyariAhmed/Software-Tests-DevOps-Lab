@@ -45,3 +45,5 @@ docker run --env-file=.env -p 3000:3000 --rm tests-devops-lab
 - api deployment (Triggered on api changes)
 
 ![Screen Shot 2022-06-06 at 12 38 58 PM](https://user-images.githubusercontent.com/56363189/172153677-6536a3a8-5c25-440d-b5e8-ee7787b4ca18.png)
+
+(Additional staging workflow with appropriate environment could be added to run e2e tests before deploying to production)
