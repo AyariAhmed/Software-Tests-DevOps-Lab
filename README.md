@@ -24,7 +24,7 @@ To get the DATABASE_URL (for free plan, credentials are not permanent )
 
 ### Dockerized App
 
-- Multi stage docker build is used to build the nestjs application and only include the build and config into the image.
+- Multi-stage docker builds is used to build the nestjs application and only include the build and config into the image.
 - To manually build and run the docker image
 
 ```bash

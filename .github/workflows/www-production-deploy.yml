@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'www/**'
+#    paths:
+#      - 'www/**'
   pull_request:
-    types: [opened]
+    types: [ opened ]
     branches:
       - main
-    paths:
-      - 'www/**'
+#    paths:
+#      - 'www/**'
 
 
 jobs:
@@ -33,9 +33,11 @@ jobs:
       - name: Production Build
         run: |
           npm run build
-#      - name: e2e Tests
-#        run: |
-#          npm run test:e2e
+      - name: e2e Tests
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm start
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:

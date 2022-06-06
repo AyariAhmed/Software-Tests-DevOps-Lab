@@ -14,7 +14,8 @@ function App() {
     }));
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     if (
       (credentials.email === '25401350' ||
         credentials.email === 'ahmed@ayari.io') &&
