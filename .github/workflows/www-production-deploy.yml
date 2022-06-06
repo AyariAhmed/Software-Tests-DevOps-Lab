@@ -42,7 +42,7 @@ jobs:
           working-directory: www
           build: npm run build
           start: npm start
-          spec: cypress/integration/**/*.js
+          spec: cypress/e2e/**/*.js
           project: .
 
       - name: Configure AWS Credentials
