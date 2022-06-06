@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - main
-#    paths:
-#      - 'www/**'
+    paths:
+      - 'www/**'
   pull_request:
     types: [ opened ]
     branches:
       - main
-#    paths:
-#      - 'www/**'
+    paths:
+      - 'www/**'
 
 
 jobs:
@@ -42,7 +42,7 @@ jobs:
           working-directory: www
           build: npm run build
           start: npm start
-          spec: cypress/e2e/**/*.js
+          spec: cypress/e2e/**/*.cy.js
           project: .
 
       - name: Configure AWS Credentials
