@@ -14,12 +14,11 @@ docker-compose up -d
 
 - Production (hosted in heroku)
 
-Provide a valid `DATABASE_URL` (postgres connection string) at `.env`,
+Provide a valid `DATABASE_URL` (postgres connection string) at `.env` (needed only for the production environment),
 
 ```bash
  heroku config -a <heroku-app-name>
 ```
-
 To get the DATABASE_URL (for free plan, credentials are not permanent )
 
 ### Dockerized App
@@ -31,6 +30,44 @@ To get the DATABASE_URL (for free plan, credentials are not permanent )
 docker build -t tests-devops-lab .
 docker run --env-file=.env -p 3000:3000 --rm tests-devops-lab
 ```
+- When deployed to ECS, the env file should be stored in S3 and the task execution role should have appropriate permissions
+to access the file in S3.
+Under container Definition :
+```json
+"environmentFiles":[
+  {
+    "value": "arn:aws:s3:::s3_bucket_name/envfile_object_name.env",
+    "type": "s3"
+  }
+]
+```
+Task Execution role with permissions:
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::s3_bucket_name/envfile_object_name.env"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:s3:::s3_bucket_name"
+      ]
+    }
+  ]
+}
+```
+> Reference [AWS Docs](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/taskdef-envfiles.html)
 
 ### CI/CD workflows
 
