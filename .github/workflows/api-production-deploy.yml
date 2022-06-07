@@ -1,4 +1,4 @@
-name: api production Build && Deploy to S3
+name: api production Build && Deploy to ECS
 
 on:
   push:
